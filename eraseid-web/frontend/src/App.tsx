@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 function App() {
@@ -7,50 +7,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // const handleUpload = async () => {
-  //   if (!file) return;
-
-  //   setLoading(true);
-  //   setError(null);
-  //   setResultUrl(null);
-
-  //   const formData = new FormData();
-  //   formData.append('file', file);
-
-  //   try {
-  //     const response = await axios.post('http://localhost:8000/upload/', formData);
-  //     console.log('Response:', response.data);
-  //     setResultUrl(response.data.result_url); // this must be a string
-
-  //     setResultUrl(response.data.result_url);
-  //   } catch (err) {
-  //     setError('Failed to upload or process image.');
-  //     console.error(err);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  // const handleUpload = async () => {
-  //   if (!file) return;
-
-  //   setLoading(true);
-  //   setError(null);
-  //   setResultUrl(null);
-
-  //   const formData = new FormData();
-  //   formData.append('file', file);
-
-  //   try {
-  //     const response = await axios.post('http://localhost:8000/upload/', formData);
-  //     console.log('✅ Backend response:', response.data);
-  //     setResultUrl(response.data.result_url);
-  //   } catch (err: any) {
-  //     console.error('❌ Upload error:', err);
-  //     setError('Failed to upload or process image.');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
   const handleUpload = async () => {
     if (!file) return;
   
@@ -62,12 +18,7 @@ function App() {
     formData.append('file', file);
   
     try {
-      const response = await axios.post('http://localhost:8000/upload/', formData, {
-        headers: {
-          // ❌ DON'T set 'Content-Type': let Axios handle it for FormData!
-          // 'Content-Type': 'multipart/form-data', // <-- REMOVE THIS
-        }
-      });
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/upload/`, formData);
   
       console.log('✅ Backend response:', response.data);
       setResultUrl(response.data.result_url);
