@@ -7,7 +7,7 @@ Users can upload an image, modify facial expressions (e.g. make a face "happy"),
 
 ## Live Demo
 
- [Frontend (Vercel)](https://your-vercel-link.vercel.app)  
+ [Frontend (Vercel)](https://piktid-api-test.vercel.app/)  
  [Backend (Railway)](https://piktid-api-test-production.up.railway.app)
 
 ---
