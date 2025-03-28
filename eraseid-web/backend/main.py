@@ -12,6 +12,7 @@ from eraseid_api import start_call
 from eraseid_utils import process_single_image
 import traceback
 
+from fastapi import Form
 
 # Load environment variables
 load_dotenv()
@@ -28,7 +29,10 @@ app.add_middleware(
 )
 
 @app.post("/upload/")
-async def upload_image(file: UploadFile = File(...)):
+async def upload_image(
+    file: UploadFile = File(...),
+     expression: str = Form('happy')
+    ):
     result_link = None  # Safe default
 
     try:
@@ -48,7 +52,7 @@ async def upload_image(file: UploadFile = File(...)):
             'FLAG_HAIR': True,
             'CHANGE_ALL_FACES': False,
             'CHANGE_EXPRESSION_FLAG': True,
-            'NEW_EXPRESSION': 'happy',
+            'NEW_EXPRESSION': expression,
             'CHANGE_SKIN': False,
             'SEED': random.randint(1, 1_000_000),
         }

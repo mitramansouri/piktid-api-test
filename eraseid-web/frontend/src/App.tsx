@@ -7,6 +7,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [expression, setExpression] = useState('happy');
 
   const handleUpload = async () => {
     if (!file) return;
@@ -17,7 +18,7 @@ function App() {
 
     const formData = new FormData();
     formData.append('file', file);
-
+    formData.append('expression', expression); // ✅ add this
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/upload/`,
@@ -65,6 +66,24 @@ function App() {
             </button>
           </div>
         )}
+        <div className="text-left w-full">
+          <label htmlFor="expression" className="block text-sm font-medium mb-1">
+            Choose expression:
+          </label>
+          <select
+            id="expression"
+            value={expression}
+            onChange={(e) => setExpression(e.target.value)}
+            className="w-full border p-2 rounded mb-2"
+          >
+            <option value="happy">Happy</option>
+            <option value="sad">Sad</option>
+            <option value="angry">Angry</option>
+            <option value="surprised">Surprised</option>
+            <option value="neutral">Neutral</option>
+          </select>
+        </div>
+
         <button
           onClick={handleUpload}
           disabled={!file || loading}
